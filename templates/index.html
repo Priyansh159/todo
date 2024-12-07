@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block body %}
+<div style="height: 100vh;">
+<div class="container my-3">
+  <h2>Add Todo</h2>
+  <form action="/" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Todo Title:</label>
+      <input type="text" class="form-label" name="title" id="title">
+    </div>
+    <div class="mb-3">
+      <label for="title" class="form-label">Todo Description:</label>
+      <input type="text" class="form-label" name="desc" id="desc" >
+    </div>
+    <button type="submit" class="btn btn-primary" id="desc">Submit</button>
+</form>
+<div class="container">
+  {% if allTodo|length == 0 %}
+    <div class="alert alert-danger" role="alert">
+      No Todos Found. Add your first Todo
+    </div>
+  {% else %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">SNo.</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Time</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in allTodo %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.desc }}</td>
+            <td>{{ todo.date_created.strftime('%d-%b-%Y %H:%M:%S') }}</td> 
+            <!-- updated way to get date time -->
+            <td>
+              <a href="/update/{{ todo.sno }}" type="button" class="btn btn-success btn-sm">Update</a>
+              <a href="/delete/{{ todo.sno }}" type="button" class="btn btn-danger btn-sm mx-2">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  </div>
+</div>
+<div class="alert alert-success check-js" role="alert">
+  <h4>Click me to Check Js</h4>
+</div>
+
+</div>
+
+
+{% endblock body %}
